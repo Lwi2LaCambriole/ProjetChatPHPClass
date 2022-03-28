@@ -16,7 +16,7 @@ $css = "liste";
         </a>
 
         <a href="message.html" class="groupe">
-            <img src="../IMAGES/Portrait_Placeholder.png" alt="image-groupe">
+            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>
@@ -27,7 +27,7 @@ $css = "liste";
         </a>
 
         <a href="message.html" class="groupe">
-            <img src="../IMAGES/Portrait_Placeholder.png" alt="image-groupe">
+            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>
@@ -38,7 +38,7 @@ $css = "liste";
         </a>
 
         <a href="message.html" class="groupe">
-            <img src="../IMAGES/Portrait_Placeholder.png" alt="image-groupe">
+            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>

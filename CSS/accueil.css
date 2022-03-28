@@ -85,7 +85,7 @@ header {
     font-size: 27px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
 
     .logo a svg {
         height: 40px;
@@ -107,7 +107,7 @@ header {
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
     .logo {
         margin-left: 20px;
@@ -135,7 +135,7 @@ header {
 
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
 
     .logo a svg {
         height: 25px;
