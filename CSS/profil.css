@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* /////////// Header /////////////// */
+
+header {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    height: 100px;
+    background-color: white;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+    box-shadow: 0px 0px 5px black;
+    /* display: none; */
+}
+
+.logo {
+    margin-left: 50px;
+}
+
+
+
+.logo a svg {
+    height: 50px;
+    transition: height 0.25s;
+}
+
+.logo a svg:hover{
+    height: 53px;
+}
+
+.form {
+    margin-right: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+.form a {
+    margin-left: 50px;
+    text-decoration: none;
+    color: #1572FF;
+    font-family: Fredoka;
+    font-weight: 500;
+    font-size: 25px;
+    transition: font-size 0.25s;
+    /* color: #3FFF9C; */
+    /* color: #55DBFF; */
+}
+
+.form a:hover {
+    font-size: 27px;
+}
+
+@media (max-width: 1000px) {
+
+    .logo a svg {
+        height: 40px;
+    }
+
+    .logo a svg:hover{
+        height: 43px;
+    }
+
+
+    .form a {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+
+    .form a:hover {
+        font-size: 22px;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .logo {
+        margin-left: 20px;
+    }
+
+    .logo a svg {
+        height: 30px;
+    }
+    .logo a svg:hover{
+        height: 33px;
+    }
+
+    .form {
+        margin-right: 20px;
+    }
+
+    .form a {
+        font-size: 15px;
+        margin-left: 10px;
+    }
+    .form a:hover {
+        font-size: 17px;
+    }
+
+
+}
+
+@media (max-width: 400px) {
+
+    .logo a svg {
+        height: 25px;
+    }
+    .logo a svg:hover{
+        height: 27px;
+    }
+
+    .form a {
+        font-size: 12px;
+        margin-left: 8px;
+    }
+    .form a:hover {
+        font-size: 13px;
+    }
+
+}
+
+/* /////////// Profil /////////////// */
+
+
+
+section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+    border: #1572FF solid 8px;
+    padding: 30px;
+    border-radius: 20px;
+    transition: border 0.25s;
+}
+
+section h1 {
+    font-family: Fredoka;
+    font-weight: 500;
+    font-size: 50px;
+    margin: 0;
+    margin-bottom: 20px;
+    color: #014dbf;
+}
+
+section .avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+section:hover {
+    border: #014dbf solid 8px;
+}
+
+.lignecompte {
+    height: 5px;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-width:0;
+    color:#1572FF;
+    background-color:#1572FF;
+}
+
+section p {
+    font-family: Manrope;
+    font-weight: 700;
+    color: #112848;
+    margin: 15px 0 15px 0;
+    font-size: 18px;
+    transition: color 0.25s;
+}
+
+section p:hover {
+    color: #1572FF;
+}
+
+section p span {
+    font-family: Manrope;
+    font-weight: 700;
+    color: #112848;
+    margin: 20px 0 20px 0;
+    font-size: 18px;
+    transition: color 0.25s;
+}
+
+section p span:hover {
+    color: #014dbf;
+}
+
+
+/* /////////// Modifier profil /////////////// */
+
+
+
+
+.lignemodif {
+    height: 5px;
+    width: 30%;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    border-width:0;
+    background-color:#014dbf;
+}
+
+
+
+form {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0 0 0;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+form h1 {
+    margin: 0;
+    font-family: Fredoka;
+    text-align: center;
+    font-weight: 900;
+    font-size: 50px;
+    color: #014dbf;
+    letter-spacing: 0.05em;
+    margin-bottom: 50px;
+}
+
+
+form p {
+    font-family: Urbanist;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 0px;
+    color: red;
+    display: none;
+}
+
+
+form .modif {
+    margin-top: 20px;
+    width: 30%;
+    border-radius: 50px;
+    padding: 10px 20px 10px 20px;
+    font-family: Manrope;
+    font-weight: 400;
+    font-size: 14px;
+    transition: border 0.25s;
+    border: #000000 solid 2px;
+}
+
+form .modif:hover {
+    border: #1572FF solid 4px;
+}
+
+form .modif:focus {
+    border: #1572FF solid 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+
+label {
+    background-color: #1572FF;
+    color: white;
+    padding: 0.5rem;
+    font-family: Urbanist;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 50px;
+    padding: 10px 20px 10px 20px;
+  }
+
+  label:hover {
+      background-color: #105dd0;
+  }
+  
+  #fichier {
+    font-family: Urbanist;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 5px;
+    color: #105dd0;
+  }
+
+  form .btn {
+    margin-top: 50px;
+    margin-bottom: 25px;
+    background-color:white;
+    cursor: pointer;
+    color:#1572FF;
+    font-family:Urbanist;
+    font-weight: 700;
+    font-size:20px;
+    letter-spacing: 0.1em;
+    padding:10px 20px;
+    text-decoration:none;
+    border: none;
+    border-radius: 50px;
+    transition: color 0.5s;
+    transition: background-color 0.5s ease-out;
+    width: 30%;
+}
+
+form .btn:hover {
+    background-color:#1572FF;
+    color:white;
+}
+
+#supprimer {
+    color:red;
+}
+
+#supprimer:hover {
+    color:white;
+    background-color: red;
+}
+
+
+
+
+
+
+
+
+
+/* /////////// Footer /////////////// */
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    font-family: Urbanist;
+    font-weight: 500;
+    font-size: 15px;
+    margin: 50px 0 25px 0;
+    bottom: 0;
+}
+
+footer p {
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+@media (max-width: 500px) {
+
+    footer {
+        font-size: 10px;
+    }
+
+}
