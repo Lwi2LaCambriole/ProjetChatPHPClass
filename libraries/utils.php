@@ -1,6 +1,6 @@
 <?php
 
-// require_once('/models/User.php');
+require_once('/models/User.php');
 
 function openSession($mail, $password){
 
@@ -164,7 +164,7 @@ function startHtml($css){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Plumo</title>
-        <link rel="stylesheet" href="../CSS/'.$css.'.css">
+        <link rel="stylesheet" href="CSS/'.$css.'.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <script src="../JS/script.js"></script>
     </head>
@@ -191,10 +191,10 @@ function pageHeader(){
         </div>
 
         <div class="form">
-            <a href="liste.html">Discussions</a>
-            <a href="utilisateurs.html">Utilisateurs</a>
-            <a href="profil.html">Mon profil</a>
-            <a href="accueil.html">Déconnexion</a>
+            <a href="liste.php">Discussions</a>
+            <a href="utilisateurs.php">Utilisateurs</a>
+            <a href="profil.php">Mon profil</a>
+            <a href="accueil.php">Déconnexion</a>
         </div>
     </header>';
 }

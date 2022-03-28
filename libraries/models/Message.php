@@ -31,7 +31,14 @@ class Message extends Model
 		$action -> execute();
     }
 
-	getAll($id_discussion){
+	public function getLatestDisplay($id_discussion){
+		$instruction = "SELECT message.msg_text, message.msg_time FROM message WHERE message.FK_id_discussion = '".$id_discussion."' ORDER BY message.msg_time ASC LIMIT 1";
+		$requete = mysqli_query($this->pdo,$instruction);
+		$reponse = mysqli_fetch_array($requete);
+		return $reponse;
+	}
+
+	public function getAll($id_discussion){
 		$requete = "SELECT * FROM message WHERE message.FK_id_discussion = :discussion ORDER BY message.msg_time ASC";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("discussion",$discussion,PDO::PARAM_STR);

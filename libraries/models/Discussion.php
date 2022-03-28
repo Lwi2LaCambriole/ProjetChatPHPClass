@@ -49,10 +49,10 @@ class Discussion extends Model
     }
 
 	public function getAll(){
-		$requete = "SELECT * FROM discussion INNER JOIN message ON discussion.id_discussion = message.FK_id_discussion WHERE discussion.FK_user1 = :user OR discussion.FK_user2 = :user ORDER BY message.msg_time ASC";
-		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("user",$this->id_session,PDO::PARAM_STR);
-		$action -> execute();
+		$requete = "SELECT * FROM discussion INNER JOIN message ON discussion.id_discussion = message.FK_id_discussion WHERE discussion.FK_user1 = '".$this->id_user."' OR discussion.FK_user2 = '".$this->id_user."' ORDER BY message.msg_time ASC";
+		$exec_requete = mysqli_query($this->pdo,$requete);
+        $discussions  = mysqli_fetch_array($exec_requete);
+		return $discussions;
 	}
 
 }

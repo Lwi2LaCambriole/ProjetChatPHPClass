@@ -1,6 +1,6 @@
 <?php
 
-require_once('../libraries/utils.php');
+require_once('libraries/utils.php');
 $css = "accueil";
 
 startHtml($css);
@@ -25,7 +25,7 @@ echo
 <h1 class="titre-co">Connectez-vous</h1>
 <h3 class="soustitre-co"><span class="soustitre1">Pour envoyer une missive à votre dulcinée.</span></h3>
 
-<form method="post" action="../libraries/redirection.php">
+<form method="post" action="libraries/redirection.php">
     <input class="connexion" placeholder="Pseudo" name="Pseudo" type="text">
     <p>Erreur : izdqjozjqdoij</p>
     <input class="connexion" placeholder="Mot de passe" name="mdp1" type="password">
@@ -46,7 +46,7 @@ echo
 <h1 class="titre-in">Inscrivez-vous</h1>
 <h3 class="soustitre-in"><span class="soustitre2">Pas de nouvelles, mauvaises nouvelles !</span></h3>
 
-<form method="post" action="../libraries/redirection.php">
+<form method="post" action="libraries/redirection.php">
     <input class="inscription" placeholder="Nom" name="Nom" type="text">
     <p>Erreur : izdqjozjqdoij</p>
     <input class="inscription" placeholder="Prénom" name="Prénom" type="text">
