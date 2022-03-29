@@ -1,7 +1,14 @@
 <?php
 
-require_once('../libraries/utils.php');
+require_once('libraries/utils.php');
 $css = "liste";
+
+$connected = $_SESSION['id_user'];
+
+if($connected==""){
+	notConnected();
+}
+else{
 
     startHtml($css);
     pageHeader();
@@ -15,8 +22,8 @@ $css = "liste";
             <p>Nouvelle conversation</p>
         </a>
 
-        <a href="message.html" class="groupe">
-            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
+        <a href="discussion.php" class="groupe">
+            <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>
@@ -26,8 +33,8 @@ $css = "liste";
             </div>
         </a>
 
-        <a href="message.html" class="groupe">
-            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
+        <a href="discussion.php" class="groupe">
+            <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>
@@ -37,8 +44,8 @@ $css = "liste";
             </div>
         </a>
 
-        <a href="message.html" class="groupe">
-            <img src="../IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
+        <a href="discussion.php" class="groupe">
+            <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="image-groupe">
             <div class="texte">
                 <div class="titre">
                     <h3>Titre</h3>
@@ -57,6 +64,6 @@ $css = "liste";
 pageFooter();
 endHtml();
 
-
+}
 
 ?>

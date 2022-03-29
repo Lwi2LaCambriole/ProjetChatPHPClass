@@ -1,7 +1,14 @@
 <?php
 
-require_once('../libraries/utils.php');
+require_once('libraries/utils.php');
 $css = "profil";
+
+$connected = $_SESSION['id_user'];
+
+if($connected==""){
+	notConnected();
+}
+else{
 
 startHtml($css);
 pageHeader();
@@ -13,7 +20,7 @@ echo
 
     <h1>MON PROFIL</h1>
 
-    <img src="../IMAGES/Portrait_Placeholder.png" alt="Avatar" class="avatar">
+    <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="Avatar" class="avatar">
 
     <p>Nom</p>
     <p>Prénom</p>
@@ -64,5 +71,7 @@ echo
 
 pageFooter();
 endHtml();
+
+}
 
 ?>

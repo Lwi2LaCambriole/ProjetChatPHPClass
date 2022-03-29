@@ -1,7 +1,14 @@
 <?php
 
-require_once('../libraries/utils.php');
+require_once('libraries/utils.php');
 $css = "utilisateurs";
+
+$connected = $_SESSION['id_user'];
+
+if($connected==""){
+	notConnected();
+}
+else{
 
 startHtml($css);
 pageHeader();
@@ -20,7 +27,7 @@ pageHeader();
 
     <div class="user">
         <div class="couleur"></div>
-        <img src="../IMAGES/Portrait_Placeholder.png" alt="portrait">
+        <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="portrait">
         <h2>Guillaume Le Goff</h2>
         <div class="stats">
             <div class="discussions">
@@ -37,7 +44,7 @@ pageHeader();
 
     <div class="user">
         <div class="couleur"></div>
-        <img src="../IMAGES/Portrait_Placeholder.png" alt="portrait">
+        <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="portrait">
         <h2>Alexandre Schaeffer</h2>
         <div class="stats">
             <div class="discussions">
@@ -54,7 +61,7 @@ pageHeader();
 
     <div class="user">
         <div class="couleur"></div>
-        <img src="../IMAGES/Portrait_Placeholder.png" alt="portrait">
+        <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="portrait">
         <h2>Louis Raillard</h2>
         <div class="stats">
             <div class="discussions">
@@ -75,6 +82,8 @@ pageHeader();
 
 pageFooter();
 endHtml();
+
+}
 
 
 

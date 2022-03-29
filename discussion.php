@@ -1,10 +1,20 @@
 <?php
 
-require_once('../libraries/utils.php');
+require_once('libraries/utils.php');
 $css = "discussion";
+
+$connected = $_SESSION['id_user'];
+
+if($connected==""){
+	notConnected();
+}
+else{
 
 startHtml($css);
 pageHeader();
+session_start();
+
+$id_session = $_SESSION['id_user'];
 
     echo
     '<section class="chatbox">
@@ -15,7 +25,7 @@ pageHeader();
 
 			<article class="msg-container msg-remote" id="msg-0">
 				<div class="msg-box">
-					<img class="user-img" id="user-0" src="../IMAGES/Portrait_Placeholder.png" />
+					<img class="user-img" id="user-0" src="IMAGES/avatars/Portrait_Placeholder.png" />
 					<div class="flr">
 						<div class="messages">
 							<p class="msg" id="msg-0">
@@ -40,7 +50,7 @@ pageHeader();
 						</div>
 						<span class="timestamp"><span class="username">Nom</span>&bull;<span class="posttime">2 minutes ago</span></span>
 					</div>
-					<img class="user-img" id="user-0" src="../IMAGES/Portrait_Placeholder.png" />
+					<img class="user-img" id="user-0" src="IMAGES/avatars/Portrait_Placeholder.png" />
 				</div>
 			</article>
 
@@ -50,14 +60,18 @@ pageHeader();
 		<form action="message.html">
 			<input type="text" autocomplete="on" placeholder="J\'avais juste envie d\'écrire..." />
 			<button>
-                <img src="../IMAGES/logo-bulle-svg.svg" alt="">
+                <img src="IMAGES/logo-bulle-svg.svg" alt="">
             </button>
 		</form>
 
 		
 	</section>';
 
+
+
 pageFooter();
 endHtml();
+
+}
 
 ?>
