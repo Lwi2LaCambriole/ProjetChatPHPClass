@@ -79,7 +79,7 @@ class User extends Model
 	}
 
 	public function getDate(){
-		$instructionDate = "SELECT date_crea FROM user WHERE id_user = :user";
+		$requete = "SELECT date_crea FROM user WHERE id_user = :user";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
@@ -93,7 +93,7 @@ class User extends Model
 	}
 
 	public function verifMail($mail){
-		$instructionMail = "SELECT count(*) FROM mail where mail = :mail";
+		$instructionMail = "SELECT count(*) FROM user where mail = :mail";
 		$requeteMail = $this->pdo->prepare($instructionMail);
 		$requeteMail -> bindValue("mail",$mail,PDO::PARAM_STR);
 		$requeteMail -> execute();
@@ -104,7 +104,7 @@ class User extends Model
 
 	public function create($nom, $prenom, $mail, $password){
 		$isDeleted=0;
-		$requete = "INSERT INTO compte (`nom`, `prenom`, `mail`, `password`, `isDeleted`) VALUES (:nom, :prenom, :mail, :pass, :deleted)";
+		$requete = "INSERT INTO user (`nom`, `prenom`, `mail`, `password`, `isDeleted`) VALUES (:nom, :prenom, :mail, :pass, :deleted)";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("nom",$nom,PDO::PARAM_STR);
 		$action -> bindValue("prenom",$prenom,PDO::PARAM_STR);

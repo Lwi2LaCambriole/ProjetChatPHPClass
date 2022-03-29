@@ -7,22 +7,22 @@ class Discussion extends Model
 {
 
     public function totalDiscussion(){
-		$instructionTotal = "SELECT COUNT(*) FROM discussion JOIN user ON discussion.FK_user1 = user.id_user WHERE user.id_user = '".$this->id_user."' UNION SELECT COUNT(*) FROM discussion JOIN user ON discussion.FK_user2 = user.id_user WHERE user.id_user = '".$id_user."'";
-		$requeteTotal = mysqli_query($this->pdo,$instructionTotal);
-		$reponseTotal = mysqli_fetch_array($requeteTotal);
-		$tab = $reponseTotal['COUNT(*)'];
-
-        $total = array_sum($tab);
-
-		return $total;
+		$requete = "SELECT COUNT(*) FROM discussion WHERE discussion.FK_user1 = :user1 OR discussion.FK_user2 = :user2";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user1",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> bindValue("user2",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		return $reponse[0];
 	}
 
     public function getLatest(){
 		$requete = "SELECT id_discussion FROM discussion ORDER BY discussion.date_crea DESC LIMIT 1";
-        $exec_requete = mysqli_query($this->pdo,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['id_user'];
-		return $id_discussion;
+        $action = $this->pdo->prepare($requete);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$id = $reponse['id_discussion'];
+		return $id;
 	}
 
     public function create($user2){
@@ -49,10 +49,13 @@ class Discussion extends Model
     }
 
 	public function getAll(){
-		$requete = "SELECT * FROM discussion INNER JOIN message ON discussion.id_discussion = message.FK_id_discussion WHERE discussion.FK_user1 = '".$this->id_user."' OR discussion.FK_user2 = '".$this->id_user."' ORDER BY message.msg_time ASC";
-		$exec_requete = mysqli_query($this->pdo,$requete);
-        $discussions  = mysqli_fetch_array($exec_requete);
-		return $discussions;
+		$requete = "SELECT * FROM discussion INNER JOIN message ON discussion.id_discussion = message.FK_id_discussion WHERE discussion.FK_user1 = :user OR discussion.FK_user2 = :user ORDER BY message.msg_time ASC";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$tab = $reponse['*'];
+		return $tab;
 	}
 
 }

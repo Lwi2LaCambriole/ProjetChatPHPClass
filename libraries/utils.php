@@ -18,7 +18,7 @@ function openSession($mail, $password){
             $id_user = $UserModel->getUserConnexion($mail, $password);
             session_start();
             $_SESSION['id_user'] = $id_user;           
-            header('Location: ../discussion.php');
+            header('Location: ../liste.php');
         }
         else
         {
@@ -43,43 +43,59 @@ function closeSession(){
 function inscription($nom, $prenom, $mail, $password, $confirm){
 
 
-    if( ($nom !== "") && ($prenom !== "") && ($mail !== "") && ($password !== "") && ($confirmPassword !== "") ){
+    if( ($nom !== "") && ($prenom !== "") && ($mail !== "") && ($password !== "") && ($confirm !== "") )
+    {
         
-        if( ((strlen($pseudo))>=3) && ((strlen($pseudo))<13) && ((strlen($password))>=5) && ($confirmPassword == $password) ) {
+        if( (strlen($password)>=5) && ($confirm == $password) ) 
+        {
+            $word1 = "@";
+            $word2 = ".";
 
-            $ModelUser = new User();
-            $countMail = $this->ModelUser->verifMail($mail);
+            if ( (strpos($mail, $word1) !== false) && (strpos($mail, $word2) !== false) )
+            {
 
-            if ($countMail==0){
+                $ModelUser = new User();
+                $countMail = $ModelUser->verifMail($mail);
 
-                $UserModel = new User();
-                $UserModel->create();
+                if ($countMail==0)
+                {
+
+                    $UserModel = new User();
+                    $UserModel->create($nom, $prenom, $mail, $password);
                 
-                session_start();
+                    session_start();
 
-                $UserModel = new User();
-                $id_user = $UserModel->getLatest();
+                    $UserModel = new User();
+                    $id_user = $UserModel->getLatest();
 
-                $_SESSION['id_user'] = $id_user;
-                header('Location: ../discussion.php');
+                    $_SESSION['id_user'] = $id_user;
+                    header('Location: ../liste.php');
 
+                }
+                else
+                {
+                    header('Location: ../accueil.php?erreur=5'); // mail déjà existant
+                }
             }
-            else{
-                header('Location: ../inscription.php?erreur=1'); // mail déjà existant
-            }
+            else
+            {
+                header('Location: ../accueil.php?erreur=4'); // mail invalide
+            }   
         }
-        else {
-        header('Location: ../inscription.php?erreur=2'); // utilisateur ou mot de passe incorrect
+        else 
+        {
+        header('Location: ../accueil.php?erreur=3'); // mot de passe invalide
         }
     }
-    else {
-    header('Location: ../inscription.php?erreur=3'); // Au moins un champs vide
+    else 
+    {
+    header('Location: ../accueil.php?erreur=2'); // Au moins un champs vide
     }
 }
 
 ///////////////////////////////////
 
-function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $confirmPassword, $avatar, $avatarLink){
+function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $confirmPassword, $avatar, $avatarLien){
 
 
     if (isset($modifier)) {
@@ -97,7 +113,7 @@ function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $c
             $this->ModelUser->updatePrenom($prenom);
         }
     
-        if ( ($mail != "") && ($countMail == 0) && str_contains('@', '.') ){
+        if ( ($mail != "") && ($countMail == 0) && (str_contains($mail, '@') && str_contains($mail, '.')) ){
             
             $ModelUser = new User();
             $this->ModelUser->updateMail($mail); // On met à jour le mail

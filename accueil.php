@@ -54,17 +54,31 @@ if($_GET['erreur']==1){
 <h3 class="soustitre-in"><span class="soustitre2">Pas de nouvelles, mauvaises nouvelles !</span></h3>
 
 <form method="post" action="libraries/redirection.php">
-    <input class="inscription" placeholder="Nom" name="Nom" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="inscription" placeholder="Prénom" name="Prénom" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="inscription" placeholder="E-mail" name="E-mail" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="inscription" placeholder="Mot de passe" name="mdp1" type="password">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="inscription" placeholder="Confirmer" name="mdp2" type="password">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="btn-in" type="submit" value="Inscription">
+    <input class="inscription" placeholder="Nom" name="innom" type="text">
+    <input class="inscription" placeholder="Prénom" name="inprenom" type="text">
+    <input class="inscription" placeholder="E-mail" name="inmail" type="text">
+    <input class="inscription" placeholder="Mot de passe" name="inmdp1" type="password">
+    <input class="inscription" placeholder="Confirmer" name="inmdp2" type="password">';
+
+    if($_GET['erreur']==2){
+        echo
+        '<p>Erreur : Veuillez remplir tous les champs</p>';
+    }
+    elseif($_GET['erreur']==3){
+        echo
+        '<p>Erreur : Mots de passe invalides</p>';
+    }
+    elseif($_GET['erreur']==4){
+        echo
+        '<p>Erreur : Adresse mail invalide</p>';
+    }
+    elseif($_GET['erreur']==5){
+        echo
+        '<p>Erreur : Mail déjà existant</p>';
+    }
+
+    echo
+    '<input class="btn-in" type="submit" value="Inscription">
 </form>
 
 
