@@ -2,6 +2,7 @@
 
 require_once('libraries/utils.php');
 $css = "discussion";
+session_start();
 
 $connected = $_SESSION['id_user'];
 
@@ -12,9 +13,6 @@ else{
 
 startHtml($css);
 pageHeader();
-session_start();
-
-$id_session = $_SESSION['id_user'];
 
     echo
     '<section class="chatbox">

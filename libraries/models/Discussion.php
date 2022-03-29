@@ -6,7 +6,7 @@ require_once('Message.php');
 class Discussion extends Model
 {
 
-    public function totalForUser(){
+    public function totalDiscussion(){
 		$instructionTotal = "SELECT COUNT(*) FROM discussion JOIN user ON discussion.FK_user1 = user.id_user WHERE user.id_user = '".$this->id_user."' UNION SELECT COUNT(*) FROM discussion JOIN user ON discussion.FK_user2 = user.id_user WHERE user.id_user = '".$id_user."'";
 		$requeteTotal = mysqli_query($this->pdo,$instructionTotal);
 		$reponseTotal = mysqli_fetch_array($requeteTotal);

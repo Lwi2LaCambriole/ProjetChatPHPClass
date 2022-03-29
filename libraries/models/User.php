@@ -6,66 +6,86 @@ class User extends Model
 {
 
 	public function getUserConnexion($mail, $password){
-		$requete = "SELECT id_user FROM user WHERE mail = '".$mail."' AND password = '".$password."'";
-        $exec_requete = mysqli_query($this->pdo,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['id_user'];
-		return $id_user;
+		$requete = "SELECT id_user FROM user WHERE mail = :mail AND password = :pass";
+        $action = $this->pdo->prepare($requete);
+		$action -> bindValue("mail",$mail,PDO::PARAM_STR);
+		$action -> bindValue("pass",$password,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$id = $reponse['id_user'];
+		return $id;
 	}
 
 	public function getLatest(){
 		$requete = "SELECT id_user FROM user ORDER BY user.date_crea DESC LIMIT 1";
-        $exec_requete = mysqli_query($this->pdo,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['id_user'];
-		return $id_user;
+        $action = $this->pdo->prepare($requete);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$id = $reponse['id_user'];
+		return $id;
 	}
 
 	public function verifCorrect($mail, $password){
-		$requete = "SELECT count(*) FROM user WHERE pseudo = '".$mail."' AND password = '".$password."' ";
-        $exec_requete = mysqli_query($this->pdo,$requete);
-        $reponse      = mysqli_fetch_array($exec_requete);
-        $count = $reponse['count(*)'];
-		return $count;
+		$requete = "SELECT count(*) FROM user WHERE mail = :mail AND password = :pass";
+        $action = $this->pdo->prepare($requete);
+		$action -> bindValue("mail",$mail,PDO::PARAM_STR);
+		$action -> bindValue("pass",$password,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$verif = $reponse['count(*)'];
+		return $verif;
 	}
 
 	public function verifSuppr($mail, $password){
-		$instructionSuppr = "SELECT isDeleted FROM user WHERE id_user = '".$this->id_user."' ";
-		$requeteSuppr = mysqli_query($this->pdo,$instructionSuppr);
-		$reponseSuppr = mysqli_fetch_array($requeteSuppr);
-		$suppr = $reponseSuppr['isDeleted'];
-		return $suppr;
+		$requete = "SELECT isDeleted FROM user WHERE mail = :mail AND password = :pass";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("mail",$mail,PDO::PARAM_STR);
+		$action -> bindValue("pass",$password,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$verif = $reponse['isDeleted'];
+		return $verif;
 	}
 
 	public function getMail(){
-		$instructionMail = "SELECT mail FROM user WHERE id_user = '".$this->id_user."' ";
-		$requeteMail = mysqli_query($this->pdo,$instructionMail);
-		$reponseMail = mysqli_fetch_array($requeteMail);
-		$mail = $reponseMail['mail'];
+
+		$requete = "SELECT mail FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$mail = $reponse['mail'];
 		return $mail;
 	}
 
 	public function getNom(){
-		$instructionNom = "SELECT nom FROM user WHERE id_user = '".$this->id_user."' ";
-		$requeteNom = mysqli_query($this->pdo,$instructionNom);
-		$reponseNom = mysqli_fetch_array($requeteNom);
-		$nom = $reponseNom['nom'];
+		$requete = "SELECT nom FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$nom = $reponse['nom'];
 		return $nom;
 	}
 
 	public function getPrenom(){
-		$instructionNom = "SELECT prenom FROM user WHERE id_user = '".$this->id_user."' ";
-		$requetePrenom = mysqli_query($this->pdo,$instructionPrenom);
-		$reponsePrenom = mysqli_fetch_array($requetePrenom);
-		$prenom = $reponsePrenom['prenom'];
+		$requete = "SELECT prenom FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$prenom = $reponse['prenom'];
 		return $prenom;
 	}
 
 	public function getDate(){
-		$instructionDate = "SELECT date_crea FROM user WHERE id_user = '".$this->id_user."' ";
-		$requeteDate = mysqli_query($this->pdo,$instructionDate);
-		$reponseDate = mysqli_fetch_array($requeteDate);
-		$debut = strtotime(['date_crea']);
+		$instructionDate = "SELECT date_crea FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+
+		$debut = strtotime($reponse['date_crea']);
 
 		$ajd = strtotime(date("y.m.d"));
 		$duree = floor(abs($ajd - $debut) / 86400);
@@ -98,7 +118,7 @@ class User extends Model
 		$InstructionNvnom = "UPDATE user SET nom = :nom WHERE id_user = :id";
 		$requeteNvnom = $this->pdo->prepare($InstructionNvnom);
 		$requeteNvnom -> bindvalue("nom", $nom, PDO::PARAM_STR);
-		$requeteNvnom -> bindvalue("id", $this->id_session, PDO::PARAM_STR);
+		$requeteNvnom -> bindvalue("id", $_SESSION['id_user'], PDO::PARAM_STR);
 		$requeteNvnom -> execute();
 	}
 
@@ -106,7 +126,7 @@ class User extends Model
 		$InstructionNvprenom = "UPDATE user SET prenom = :prenom WHERE id_user = :id";
 		$requeteNvprenom = $this->pdo->prepare($InstructionNvprenom);
 		$requeteNvprenom -> bindvalue("prenom", $prenom, PDO::PARAM_STR);
-		$requeteNvprenom -> bindvalue("id", $this->id_session, PDO::PARAM_STR);
+		$requeteNvprenom -> bindvalue("id", $_SESSION['id_user'], PDO::PARAM_STR);
 		$requeteNvprenom -> execute();
 	}
 
@@ -114,7 +134,7 @@ class User extends Model
 		$InstructionNvmail = "UPDATE user SET mail = :mail WHERE id_user = :id";
         $requeteNvmail = $this->pdo->prepare($InstructionNvmail);
         $requeteNvmail -> bindvalue("mail", $mail, PDO::PARAM_STR);
-        $requeteNvmail -> bindvalue("id", $this->id_session, PDO::PARAM_STR);
+        $requeteNvmail -> bindvalue("id", $_SESSION['id_user'], PDO::PARAM_STR);
         $requeteNvmail -> execute();
 	}
 
@@ -122,7 +142,7 @@ class User extends Model
 		$InstructionNvpass = "UPDATE user SET password = :pass WHERE id_user = :id";
         $requeteNvpass = $this->pdo->prepare($InstructionNvpass);
         $requeteNvpass -> bindvalue("pass", $password, PDO::PARAM_STR);
-        $requeteNvpass -> bindvalue("id", $this->id_session, PDO::PARAM_STR);
+        $requeteNvpass -> bindvalue("id", $_SESSION['id_user'], PDO::PARAM_STR);
         $requeteNvpass -> execute();
 	}
 
@@ -130,28 +150,30 @@ class User extends Model
 		$InstructionNvavatar = "UPDATE user SET user.avatar_lien = :avatar WHERE id_user = :id";
         $requeteNvavatar = $this->pdo->prepare($InstructionNvavatar);
         $requeteNvavatar -> bindvalue("avatar", $avatar, PDO::PARAM_STR);
-        $requeteNvavatar -> bindvalue("id", $this->id_session, PDO::PARAM_STR);
+        $requeteNvavatar -> bindvalue("id", $_SESSION['id_user'], PDO::PARAM_STR);
         $requeteNvavatar -> execute();
 	}
 
 	public function supprimer(){
         $requete = "UPDATE user SET user.isDeleted = 1 WHERE user.id_user = :user";
 		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("user",$this->id_session,PDO::PARAM_STR);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
     }
 
 	public function getAll(){
 		$requete = "SELECT * FROM user WHERE user.id_user != :user ORDER BY user.nom ASC";
 		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("user",$this->id_session,PDO::PARAM_STR);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
+		$reponse = $action -> fetch();
+		return $reponse;
 	}
 
 	public function cherche($recherche){
 		$requete = 'SELECT * FROM user WHERE user.nom LIKE "%'.$recherche.'%" OR user.prenom LIKE "%'.$recherche.'%" ORDER BY user.nom ASC';
 		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("user",$this->id_session,PDO::PARAM_STR);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
 		$reponse = $action -> fetch();
 		return $reponse;

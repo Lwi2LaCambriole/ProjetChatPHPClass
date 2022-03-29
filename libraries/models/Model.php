@@ -1,15 +1,14 @@
 <?php
 
-require_once('Database.php');
+require_once("pdo.php");
 
-class Model extends Database {
+class Model {
 
     protected $pdo;
 
 	public function __construct()
 	{
 		$this->pdo = getPdo();
-        $this->id_session = $_SESSION['id_user'];
 	}
 
 }

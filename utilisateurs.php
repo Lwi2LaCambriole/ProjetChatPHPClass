@@ -2,6 +2,7 @@
 
 require_once('libraries/utils.php');
 $css = "utilisateurs";
+session_start();
 
 $connected = $_SESSION['id_user'];
 

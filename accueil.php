@@ -2,6 +2,7 @@
 
 require_once('libraries/utils.php');
 $css = "accueil";
+session_start();
 
 startHtml($css);
 
@@ -26,11 +27,11 @@ echo
 <h3 class="soustitre-co"><span class="soustitre1">Pour envoyer une missive à votre dulcinée.</span></h3>
 
 <form method="post" action="libraries/redirection.php">
-    <input class="connexion" placeholder="Pseudo" name="Pseudo" type="text">
+    <input class="connexion" placeholder="Mail" name="conmail" type="text">
     <p>Erreur : izdqjozjqdoij</p>
-    <input class="connexion" placeholder="Mot de passe" name="mdp1" type="password">
+    <input class="connexion" placeholder="Mot de passe" name="conmdp" type="password">
     <p>Erreur : izdqjozjqdoij</p>
-    <input class="btn-co" type="submit" value="Connexion">
+    <input class="btn-co" type="submit" value="connexion">
 </form>
 </div>
 

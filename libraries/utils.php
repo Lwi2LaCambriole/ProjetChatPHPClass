@@ -7,16 +7,16 @@ function openSession($mail, $password){
     if($mail !== "" && $password !== "")
     {
         $UserModel = new User();
-        $count = $this->UserModel->verifCorrect($mail, $password);
+        $count = $UserModel->verifCorrect($mail, $password);
 
         $UserModel = new User();
-        $suppr =$this->UserModel->verifSuppr($mail, $password);
+        $suppr =$UserModel->verifSuppr($mail, $password);
 
         if(($count!=0) && ($suppr==0)) // nom d'utilisateur et mot de passe corrects (et pas supprimés)
         {
             $UserModel = new User();
-            $id_user = $this->UserModel->getId_user($mail, $password);
-            $_SESSION['id_user'] = $id_user;            
+            $id_user = $UserModel->getUserConnexion($mail, $password);
+            $_SESSION['id_user'] = $id_user;           
             header('Location: ../discussion.php');
         }
         else
@@ -160,7 +160,6 @@ function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $c
 ///////////////////////////////
 
 function startHtml($css){
-
     echo
     '<!DOCTYPE html>
     <html lang="en">
@@ -188,7 +187,7 @@ function endHtml(){
 }
 
 function pageHeader(){
-
+    
     echo
     '<header>
         <div class="logo">
