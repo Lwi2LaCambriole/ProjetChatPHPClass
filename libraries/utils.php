@@ -16,17 +16,18 @@ function openSession($mail, $password){
         {
             $UserModel = new User();
             $id_user = $UserModel->getUserConnexion($mail, $password);
+            session_start();
             $_SESSION['id_user'] = $id_user;           
             header('Location: ../discussion.php');
         }
         else
         {
-            header('Location: ../index.php?erreur=1'); // utilisateur ou mot de passe incorrect
+            header('Location: ../accueil.php?erreur=1'); // utilisateur ou mot de passe incorrect
         }
     }
     else
     {
-        header('Location: ../index.php?erreur=2'); // utilisateur ou mot de passe vide
+        header('Location: ../accueil.php'); // utilisateur ou mot de passe vide
     }
 }
 
@@ -52,12 +53,12 @@ function inscription($nom, $prenom, $mail, $password, $confirm){
             if ($countMail==0){
 
                 $UserModel = new User();
-                $this->UserModel->create();
+                $UserModel->create();
                 
                 session_start();
 
                 $UserModel = new User();
-                $id_user = $this->UserModel->getLatest();
+                $id_user = $UserModel->getLatest();
 
                 $_SESSION['id_user'] = $id_user;
                 header('Location: ../discussion.php');

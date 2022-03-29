@@ -28,10 +28,16 @@ echo
 
 <form method="post" action="libraries/redirection.php">
     <input class="connexion" placeholder="Mail" name="conmail" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="connexion" placeholder="Mot de passe" name="conmdp" type="password">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="btn-co" type="submit" value="connexion">
+    <input class="connexion" placeholder="Mot de passe" name="conmdp" type="password">';
+
+if($_GET['erreur']==1){
+    echo
+    '<p>Erreur : Identifiants incorrects</p>';
+}
+
+    echo
+    '<input class="btn-co" type="submit" value="connexion">
+    
 </form>
 </div>
 

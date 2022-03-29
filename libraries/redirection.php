@@ -7,6 +7,9 @@ if($_POST['conmail']!="" && $_POST['conmdp']!=""){
     $password = $_POST['conmdp'];
     openSession($mail, $password);
 }
+else{
+    header('Location: ../accueil.php');
+}
 
 
 

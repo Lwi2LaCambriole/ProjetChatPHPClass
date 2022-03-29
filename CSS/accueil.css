@@ -366,7 +366,7 @@ form p {
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
     color: red;
-    display: none;
+    /* display: none; */
 }
 
 .formulaire .btn-co {
