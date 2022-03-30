@@ -47,6 +47,17 @@ class User extends Model
 		return $verif;
 	}
 
+	public function getAvatar(){
+
+		$requete = "SELECT avatar_lien FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$avatar = $reponse['avatar_lien'];
+		return $avatar;
+	}
+
 	public function getMail(){
 
 		$requete = "SELECT mail FROM user WHERE id_user = :user";

@@ -8,6 +8,7 @@ session_start();
 $css = "profil";
 
 $ModelUser = new User();
+$avatar = $ModelUser->getAvatar();
 $nom = $ModelUser->getNom();
 $prenom = $ModelUser->getPrenom();
 $mail = $ModelUser->getMail();
@@ -40,7 +41,7 @@ echo
 
     <h1>MON PROFIL</h1>
 
-    <img src="IMAGES/avatars/Portrait_Placeholder.png" alt="Avatar" class="avatar">
+    <img src="IMAGES/avatars/'.$avatar.'" alt="Avatar" class="avatar">
 
     <p>'.$nom.'</p>
     <p>'.$prenom.'</p>
@@ -61,25 +62,37 @@ echo
 <!-- ////////////////// Section Modifier ////////////////////// -->
 
 
-<form method="post">
+<form method="post" action="libraries/redirection.php" enctype="multipart/form-data">
     <h1>MODIFIER MON PROFIL</h1>
-    <input class="modif" placeholder="Prénom" value="Prénom actuel" name="Nom" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="modif" placeholder="Nom" value="Nom actuel" name="Prénom" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="modif" placeholder="E-mail" value="E-mail actuel" name="Pseudo" type="text">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="modif" placeholder="Nouveau mot de passe" name="mdp1" type="password">
-    <p>Erreur : izdqjozjqdoij</p>
-    <input class="modif" placeholder="Confirmer le mot de passe" name="mdp2" type="password">
-    <p>Erreur : izdqjozjqdoij</p>
+    <input class="modif" placeholder="Nom" name="modifnom" type="text">
+    <input class="modif" placeholder="Prénom" name="modifprenom" type="text">
+    <input class="modif" placeholder="E-mail" name="modifmail" type="text">
+    <input class="modif" placeholder="Nouveau mot de passe" name="modifmdp1" type="password">
+    <input class="modif" placeholder="Confirmer le mot de passe" name="modifmdp2" type="password">';
 
-    <input id="avatar" name="uploadAvatar" type="file" hidden>
+
+    if(isset($_GET['erreur'])){
+        if($_GET['erreur']==1){
+            echo
+            '<p>Erreur : mail indisponible</p>';
+        }
+        elseif($_GET['erreur']==2){
+            echo
+            '<p>Erreur : mots de passe non valides</p>';
+        }
+        elseif($_GET['erreur']==3){
+            echo
+            '<p>Erreur : mail et mot de passe non valides</p>';
+        }
+    }
+
+    echo
+    '<input id="avatar" name="avatar" type="file" hidden>
     <label for="avatar">Nouvelle photo de profil</label>
     <span id="fichier"></span>
 
-    <input class="btn" type="submit" value="Modifier">
-    <input class="btn" id="supprimer" type="submit" value="Supprimer">
+    <input class="btn" type="submit" name="modifier" value="Modifier">
+    <input class="btn" id="supprimer" type="submit" name="supprimer" value="Supprimer">
 </form>
 
 

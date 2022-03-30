@@ -36,7 +36,7 @@ if($_GET['erreur']==1){
 }
 
     echo
-    '<input class="btn-co" type="submit" value="connexion">
+    '<input class="btn-co" type="submit" name="connexion" value="Connexion">
     
 </form>
 </div>
@@ -60,25 +60,27 @@ if($_GET['erreur']==1){
     <input class="inscription" placeholder="Mot de passe" name="inmdp1" type="password">
     <input class="inscription" placeholder="Confirmer" name="inmdp2" type="password">';
 
-    if($_GET['erreur']==2){
-        echo
-        '<p>Erreur : Veuillez remplir tous les champs</p>';
-    }
-    elseif($_GET['erreur']==3){
-        echo
-        '<p>Erreur : Mots de passe invalides</p>';
-    }
-    elseif($_GET['erreur']==4){
-        echo
-        '<p>Erreur : Adresse mail invalide</p>';
-    }
-    elseif($_GET['erreur']==5){
-        echo
-        '<p>Erreur : Mail déjà existant</p>';
+    if(isset($_GET['erreur'])){
+        if($_GET['erreur']==2){
+            echo
+            '<p>Erreur : Veuillez remplir tous les champs</p>';
+        }
+        elseif($_GET['erreur']==3){
+            echo
+            '<p>Erreur : Mots de passe invalides</p>';
+        }
+        elseif($_GET['erreur']==4){
+            echo
+            '<p>Erreur : Adresse mail invalide</p>';
+        }
+        elseif($_GET['erreur']==5){
+            echo
+            '<p>Erreur : Mail déjà existant</p>';
+        }
     }
 
     echo
-    '<input class="btn-in" type="submit" value="Inscription">
+    '<input class="btn-in" type="submit" name="inscription" value="Inscription">
 </form>
 
 

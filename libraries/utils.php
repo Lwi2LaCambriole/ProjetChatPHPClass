@@ -12,7 +12,7 @@ function openSession($mail, $password){
         $UserModel = new User();
         $suppr =$UserModel->verifSuppr($mail, $password);
 
-        if(($count!=0) && ($suppr==0)) // nom d'utilisateur et mot de passe corrects (et pas supprimés)
+        if(($count!=0) && ($suppr==0)) // nom d'utilisateur et mot de passe corrects (et compte pas supprimé)
         {
             $UserModel = new User();
             $id_user = $UserModel->getUserConnexion($mail, $password);
@@ -32,8 +32,8 @@ function openSession($mail, $password){
 }
 
 function closeSession(){
-    session_unset();
-    header('Location: accueil.php');
+    session_destroy();
+    header('Location: ../accueil.php');
 }
 
 
@@ -101,22 +101,25 @@ function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $c
     if (isset($modifier)) {
     
         $ModelUser = new User();
-        $countMail = $this->ModelUser->verifMail($mail);
+        $countMail = $ModelUser->verifMail($mail);
     
         if ( (($nom != "") && (strlen($nom)<20)) ){
             $ModelUser = new User();
-            $this->ModelUser->updateNom($nom); // On met à jour le nom
+            $ModelUser->updateNom($nom); // On met à jour le nom
         }
     
         if ( ($prenom != "") && (strlen($prenom)<20) ){  // On met à jour le prénom
             $ModelUser = new User();
-            $this->ModelUser->updatePrenom($prenom);
+            $ModelUser->updatePrenom($prenom);
         }
+
+        $word1 = "@";
+        $word2 = ".";
     
-        if ( ($mail != "") && ($countMail == 0) && (str_contains($mail, '@') && str_contains($mail, '.')) ){
+        if ( ($mail != "") && ($countMail == 0) && ((strpos($mail, $word1) !== false) && (strpos($mail, $word2) !== false)) ){
             
             $ModelUser = new User();
-            $this->ModelUser->updateMail($mail); // On met à jour le mail
+            $ModelUser->updateMail($mail); // On met à jour le mail
 
             $err1=0;
         }
@@ -124,39 +127,44 @@ function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $c
             $err1=1;
         }
     
-        if ( ($password == $confirmPassword) && ($password != "") && (strlen($_POST['password'])>=5) ){
+        if ( ($password == $confirmPassword) && ($password != "") && (strlen($password)>=5) ){
             
             $ModelUser = new User();
-            $this->ModelUser->updatePassword($password); // On met à jour le mdp
+            $ModelUser->updatePassword($password); // On met à jour le mdp
 
             $err2=0;
         }
-        elseif(($_POST['password'] != $_POST['confirmPassword']) && ((strlen($_POST['password'])<5) || (strlen($_POST['password'])<20)) ) {
+        elseif( ($password != $confirmPassword) && (strlen($password)<5) && (strlen($password)>=1) ) 
+        {
             $err2=2;
         }
 
         if($avatar){
 			$avatarLien = preg_replace('/[^A-Za-z0-9 \.\-_]/', '', $avatarLien); // On remplace les caractères non-alphanumériques du nom du fichier
 	
-			$dest =__DIR__.'/../img/imgformat/article/titre/'.$avatarLien;
+			$dest =__DIR__.'/../IMAGES/avatars/'.$avatarLien;
 			move_uploaded_file($avatar, $dest); // On enregistre notre fichier dans le bon dossier ! Dans le cas où l'image enregistrée a le meme nom qu'une image déjà existante, l'ancienne sera écrasée.
             
             $ModelUser = new User();
-            $this->ModelUser->updateAvatar($avatarLien); // On met à jour l'avatar
+            $ModelUser->updateAvatar($avatarLien); // On met à jour l'avatar
 		}
 
         $err = $err1 + $err2;
 
-        if($err==0){
+        if($err==0)
+        {
             header('Location: ../profil.php');
         }
-        elseif($err==1){
+        elseif($err==1)
+        {
             header('Location: ../profil.php?erreur=1');
         }
-        elseif($err==2){
+        elseif($err==2)
+        {
             header('Location: ../profil.php?erreur=2');
         }
-        else{
+        else
+        {
             header('Location: ../profil.php?erreur=3');
         }
         
@@ -166,10 +174,9 @@ function updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $password, $c
     elseif (isset($supprimer)) {
     
         $ModelUser = new User();
-        $this->ModelUser->supprimer();
+        $ModelUser->supprimer();
 
-        session_unset();
-        header('Location: accueil.php');
+        closeSession();
     
     }
 }
@@ -187,9 +194,9 @@ function startHtml($css){
         <title>Plumo</title>
         <link rel="stylesheet" href="CSS/'.$css.'.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <script src="../JS/script.js"></script>
+        <script src="JS/script.js"></script>
     </head>
-    <body>';
+    <body onload="uploadAvatar();" style="margin:0px;">';
 
 }
 
@@ -197,9 +204,6 @@ function endHtml(){
 
     echo
     '</body>
-    </html>
-    
-    </body>
     </html>';
 }
 
@@ -215,7 +219,7 @@ function pageHeader(){
             <a href="liste.php">Discussions</a>
             <a href="utilisateurs.php">Utilisateurs</a>
             <a href="profil.php">Mon profil</a>
-            <a href="accueil.php">Déconnexion</a>
+            <a href="libraries/redirection.php?deconnexion=true">Déconnexion</a>
         </div>
     </header>';
 }
