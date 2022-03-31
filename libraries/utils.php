@@ -217,8 +217,8 @@ function pageHeader(){
 
         <div class="form">
             <a href="liste.php">Discussions</a>
-            <a href="utilisateurs.php">Utilisateurs</a>
-            <a href="profil.php">Mon profil</a>
+            <a href="utilisateurs.php">Écrire</a>
+            <a href="profil.php">Profil</a>
             <a href="libraries/redirection.php?deconnexion=true">Déconnexion</a>
         </div>
     </header>';
@@ -287,6 +287,61 @@ a:hover{
         <p>Vous n\'êtes pas connecté !</p>
         <a href="accueil.php">Par ici pour vous connecter ou vous inscrire.</a>
         
+    </section>
+
+</body>
+</html>
+
+</body>
+</html>';
+}
+
+function pasledroit(){
+    echo
+    '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plumo</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&display=swap");
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 200px;
+}
+a{
+    text-decoration: none;
+    color: #1572FF;
+    font-family: Fredoka;
+    font-size: 15px;
+    font-weight: 500;
+    transition: font-size 0.25s;
+    margin-top: 50px;
+}
+
+a:hover{
+    font-size: 16px;
+}
+    </style>
+</head>
+<body>
+
+    <section>
+        <img src="IMAGES/elden.jpg" alt="logo" width="300px">
+        <a href="liste.php">Retour au menu.</a>
     </section>
 
 </body>

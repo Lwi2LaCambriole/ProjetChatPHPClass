@@ -5,8 +5,6 @@ require_once('libraries/models/User.php');
 require_once('libraries/models/Discussion.php');
 require_once('libraries/models/Message.php');
 
-   
-
 $css = "utilisateurs";
 session_start();
 
@@ -28,7 +26,7 @@ pageHeader();
     <div class="cherche">
         <form action="libraries/redirection.php" method="POST">
             <input type="search" placeholder="Chercher un utilisateur..." name="recherche">
-            <i class="fa fa-search"></i>
+            <button><i class="fa fa-search" type="submit"></i></button>
         </form>
     </div>';
 

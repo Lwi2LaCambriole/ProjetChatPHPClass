@@ -44,7 +44,7 @@ class Message extends Model
     }
 
 	public function getLatestDisplay($id_discussion){
-		$requete = "SELECT message.msg_text, message.msg_time FROM message WHERE message.FK_id_discussion = :id ORDER BY message.msg_time ASC LIMIT 1";
+		$requete = "SELECT message.msg_text, message.msg_time FROM message WHERE message.FK_id_discussion = :id ORDER BY message.msg_time DESC LIMIT 1";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("id",$id_discussion,PDO::PARAM_STR);
 		$action -> execute();
@@ -55,11 +55,11 @@ class Message extends Model
 
 	public function getAll($id_discussion)
 	{
-		$requete = "SELECT * FROM message WHERE message.FK_id_discussion = :discussion ORDER BY message.msg_time ASC";
+		$requete = "SELECT * FROM message WHERE message.FK_id_discussion = :discussion ORDER BY message.msg_time DESC LIMIT 30";
 		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("discussion",$discussion,PDO::PARAM_STR);
+		$action -> bindValue("discussion",$id_discussion,PDO::PARAM_STR);
 		$action -> execute();
-		$reponse = $action -> fetch();
+		$reponse = $action -> fetchAll();
 		return $reponse;
 		// Tableau associatif à double dimensions (foreach...)
 		

@@ -224,6 +224,17 @@ form:hover .fa{
     margin-right: 2px;
 }
 
+.cherche button {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    
+}
+
 /* /////////// Section utilisateurs /////////////// */
 
 

@@ -54,10 +54,20 @@ elseif(is_numeric($_GET["user"]))
     $ModelDiscussion->create($user);
 
 }
-// else
-// {
-//     header('Location: ../accueil.php');
-// }
+elseif(isset($_POST["message"]))
+{
+    $idconv = $_GET["conv"];
+    $text = $_POST['message'];
+
+    $ModelMessage = new Message();
+    $ModelMessage->create($text, $idconv);
+
+    header('Location: ../discussion.php?id='.$idconv.'');
+}
+else
+{
+    header('Location: ../accueil.php');
+}
 
 
 

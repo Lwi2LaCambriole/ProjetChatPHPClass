@@ -8,5 +8,12 @@ function uploadAvatar() {
     })
 }
 
+// function update() {
+//   $.get("discussion.php", function(data) {
+//     $("#discussion").html(data);
+//     window.setTimeout(update, 1000);
+//   });
+// }
+
 ///////////////////
 

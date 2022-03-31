@@ -286,12 +286,15 @@ h1 {
     font-size: 20px;
     font-weight: 600;
     letter-spacing: 0.05em;
+    margin: 0;
 }
 
 .groupe .texte .titre p {
     color: white;
-    font-size: 15px;
+    font-size: 10px;
     font-weight: 300;
+    text-align: right;
+    margin: 0;
 }
 
 .groupe .texte p {

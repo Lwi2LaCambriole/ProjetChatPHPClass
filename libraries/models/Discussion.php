@@ -50,14 +50,15 @@ class Discussion extends Model
 
     public function create($user){
         $isDeleted=0;
-		$requete = "INSERT INTO message (`FK_user1`, `FK_user2`, `isDeleted`) VALUES (:user1, :user2,  :deleted)";
-		$action = $bdd->prepare($requete);
+		$requete = "INSERT INTO discussion (`FK_user1`, `FK_user2`, `isDeleted`) VALUES (:user1, :user2,  :deleted)";
+		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("user1",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> bindValue("user2",$user,PDO::PARAM_STR);
 		$action -> bindValue("deleted",$isDeleted,PDO::PARAM_STR);
 		$action -> execute();
 
-        $id_discussion = getLatest();
+		$ModelDiscussion = new Discussion();
+        $id_discussion = $ModelDiscussion->getLatest();
         $defaultText = "Salut ! Discutons un peu...";
 
         $ModelMessage = new Message();
@@ -78,6 +79,14 @@ class Discussion extends Model
 		$action = $this->pdo->prepare($requete);
 		$action -> execute();
 		$reponse = $action -> fetchAll();
+		return $reponse;
+	}
+
+	public function get($id){
+		$requete = "SELECT * FROM discussion WHERE discussion.id_discussion = '".$id."'";
+		$action = $this->pdo->prepare($requete);
+		$action -> execute();
+		$reponse = $action -> fetch();
 		return $reponse;
 	}
 
