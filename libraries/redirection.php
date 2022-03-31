@@ -1,6 +1,9 @@
 <?php
 
 require_once('utils.php');
+require_once('models/Discussion.php');
+require_once('models/Message.php');
+require_once('models/User.php');
 session_start();
 
 if($_POST['connexion']){
@@ -33,11 +36,23 @@ elseif($_POST['modifier'] || $_POST['supprimer'])
 
     updateProfil($modifier, $supprimer, $nom, $prenom, $mail, $mdp1, $mdp2, $avatar, $avatarLien);
 }
-
 elseif(isset($_GET['deconnexion'])) { 
     if($_GET['deconnexion']==true) { 
         closeSession();
     }
+}
+elseif(isset($_POST['recherche']))
+{
+    $recherche = $_POST["recherche"];
+    header('Location: ../utilisateurs.php?recherche='.$recherche.'');
+}
+elseif(is_numeric($_GET["user"]))
+{
+    $user = $_GET["user"];
+
+    $ModelDiscussion = new Discussion();
+    $ModelDiscussion->create($user);
+
 }
 // else
 // {

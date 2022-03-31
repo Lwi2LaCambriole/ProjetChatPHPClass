@@ -15,6 +15,16 @@ class Message extends Model
 		return $total;
 	}
 
+	public function totalMessageUsers($user){
+		$requete = "SELECT COUNT(*) FROM message INNER JOIN user ON message.FK_id_user = user.id_user WHERE user.id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$user,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$total = $reponse['COUNT(*)'];
+		return $total;
+	}
+
     public function create($text, $id_discussion){
         $isDeleted=0;
 		$requete = "INSERT INTO message (`msg_text`, `FK_id_user`, `FK_id_discussion`, `isDeleted`) VALUES (:texte, :user, :discussion, :deleted)";
@@ -39,12 +49,12 @@ class Message extends Model
 		$action -> bindValue("id",$id_discussion,PDO::PARAM_STR);
 		$action -> execute();
 		$reponse = $action -> fetch();
-		$total = $reponse['COUNT(*)'];
-		return $total;
+		return $reponse;
 		// Tableau associatif avec en clé msg_text et msg_time
 	}
 
-	public function getAll($id_discussion){
+	public function getAll($id_discussion)
+	{
 		$requete = "SELECT * FROM message WHERE message.FK_id_discussion = :discussion ORDER BY message.msg_time ASC";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("discussion",$discussion,PDO::PARAM_STR);

@@ -6,14 +6,37 @@ require_once('Message.php');
 class Discussion extends Model
 {
 
-    public function totalDiscussion(){
+    public function totalDiscussion()
+	{
 		$requete = "SELECT COUNT(*) FROM discussion WHERE discussion.FK_user1 = :user1 OR discussion.FK_user2 = :user2";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("user1",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> bindValue("user2",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
 		$reponse = $action -> fetch();
-		return $reponse[0];
+		$discussion = $reponse['COUNT(*)'];
+		return $discussion;
+	}
+
+	public function verifDiscussion($user)
+	{
+		$requete = "SELECT COUNT(*) FROM discussion WHERE (discussion.FK_user1 = ".$_SESSION['id_user']." AND discussion.FK_user2 = ".$user.") OR (discussion.FK_user1 = ".$user." AND discussion.FK_user2 = ".$_SESSION['id_user'].")";
+		$action = $this->pdo->prepare($requete);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$discussion = $reponse['COUNT(*)'];
+		return $discussion;
+	}
+
+	public function totalDiscussionUsers($user){
+		$requete = "SELECT COUNT(*) FROM discussion WHERE discussion.FK_user1 = :user1 OR discussion.FK_user2 = :user2";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user1",$user,PDO::PARAM_STR);
+		$action -> bindValue("user2",$user,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$discussion = $reponse['COUNT(*)'];
+		return $discussion;
 	}
 
     public function getLatest(){
@@ -25,12 +48,12 @@ class Discussion extends Model
 		return $id;
 	}
 
-    public function create($user2){
+    public function create($user){
         $isDeleted=0;
 		$requete = "INSERT INTO message (`FK_user1`, `FK_user2`, `isDeleted`) VALUES (:user1, :user2,  :deleted)";
 		$action = $bdd->prepare($requete);
-		$action -> bindValue("user1",$text,PDO::PARAM_STR);
-		$action -> bindValue("user2",$this->id_session,PDO::PARAM_STR);
+		$action -> bindValue("user1",$_SESSION['id_user'],PDO::PARAM_STR);
+		$action -> bindValue("user2",$user,PDO::PARAM_STR);
 		$action -> bindValue("deleted",$isDeleted,PDO::PARAM_STR);
 		$action -> execute();
 
@@ -38,7 +61,9 @@ class Discussion extends Model
         $defaultText = "Salut ! Discutons un peu...";
 
         $ModelMessage = new Message();
-        $this->ModelMessage->create($defaultText, $id_discussion);
+        $ModelMessage->create($defaultText, $id_discussion);
+
+		header('Location: ../discussion.php?id='.$id_discussion.'');
     }
 
     public function supprimer($id_discussion){
@@ -49,13 +74,11 @@ class Discussion extends Model
     }
 
 	public function getAll(){
-		$requete = "SELECT * FROM discussion INNER JOIN message ON discussion.id_discussion = message.FK_id_discussion WHERE discussion.FK_user1 = :user OR discussion.FK_user2 = :user ORDER BY message.msg_time ASC";
+		$requete = "SELECT * FROM discussion WHERE discussion.FK_user1 = '".$_SESSION['id_user']."' OR discussion.FK_user2 = '".$_SESSION['id_user']."' ORDER BY discussion.date_crea ASC";
 		$action = $this->pdo->prepare($requete);
-		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
-		$reponse = $action -> fetch();
-		$tab = $reponse['*'];
-		return $tab;
+		$reponse = $action -> fetchAll();
+		return $reponse;
 	}
 
 }

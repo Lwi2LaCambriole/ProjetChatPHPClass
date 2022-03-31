@@ -173,21 +173,53 @@ class User extends Model
     }
 
 	public function getAll(){
-		$requete = "SELECT * FROM user WHERE user.id_user != :user ORDER BY user.nom ASC";
+		$requete = "SELECT * FROM user WHERE user.id_user != :user AND user.isDeleted = 0 ORDER BY user.nom ASC";
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
-		$reponse = $action -> fetch();
+		$reponse = $action -> fetchAll();
+		// $total = $reponse['*'];
 		return $reponse;
 	}
 
 	public function cherche($recherche){
-		$requete = 'SELECT * FROM user WHERE user.nom LIKE "%'.$recherche.'%" OR user.prenom LIKE "%'.$recherche.'%" ORDER BY user.nom ASC';
+		$requete = 'SELECT * FROM user WHERE (user.nom LIKE "%'.$recherche.'%" OR user.prenom LIKE "%'.$recherche.'%") AND user.isDeleted = 0 ORDER BY user.nom ASC';
 		$action = $this->pdo->prepare($requete);
 		$action -> bindValue("user",$_SESSION['id_user'],PDO::PARAM_STR);
 		$action -> execute();
-		$reponse = $action -> fetch();
+		$reponse = $action -> fetchAll();
 		return $reponse;
+	}
+
+	public function getNomListe($id){
+		$requete = "SELECT nom FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$id,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$nom = $reponse['nom'];
+		return $nom;
+	}
+
+	public function getPrenomListe($id){
+		$requete = "SELECT prenom FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$id,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$prenom = $reponse['prenom'];
+		return $prenom;
+	}
+
+	public function getAvatarListe($id){
+
+		$requete = "SELECT avatar_lien FROM user WHERE id_user = :user";
+		$action = $this->pdo->prepare($requete);
+		$action -> bindValue("user",$id,PDO::PARAM_STR);
+		$action -> execute();
+		$reponse = $action -> fetch();
+		$avatar = $reponse['avatar_lien'];
+		return $avatar;
 	}
 
 }
