@@ -19,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 /* /////////// Header /////////////// */
@@ -235,6 +236,14 @@ form:hover .fa{
     
 }
 
+@media (max-width: 500px){
+
+    .cherche {
+        transform: scale(0.7);
+    }
+}
+
+
 /* /////////// Section utilisateurs /////////////// */
 
 
@@ -243,6 +252,7 @@ section {
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
+    margin-bottom: 100px;
    
 }
 
@@ -254,6 +264,7 @@ h1 {
     font-family: Fredoka;
     font-size: 50px;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 .user {
@@ -355,6 +366,30 @@ h1 {
     transform: scale(1.1);
 }
 
+@media (max-width: 500px){
+    
+    h1 {
+        font-size: 40px;
+    }
+    
+    .user {
+        width: 300px;
+    }
+    
+    
+    .stats p {
+        font-size: 15px;
+    }
+    
+    .user a {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        padding: 5px 15px 5px 15px;
+    }
+}
+
 
 
 
@@ -375,8 +410,9 @@ footer {
     font-family: Urbanist;
     font-weight: 500;
     font-size: 15px;
-    margin: 50px 0 25px 0;
     bottom: 0;
+    position: absolute;
+    margin-bottom: 20px;
 }
 
 footer p {
@@ -390,5 +426,6 @@ footer p {
     footer {
         font-size: 10px;
     }
+
 
 }
